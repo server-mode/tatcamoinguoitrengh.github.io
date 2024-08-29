@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trình quản lí tài khoản nội bộ</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add this CSS to highlight the selected row */
+        #sub-table tbody tr.selected {
+            background-color: #d3d3d3; /* Light gray background for selected row */
+        }
+    </style>
+</head>
+<body>
+    <div id="login-container">
+        <h2>Đăng nhập</h2>
+        <label for="login-username">Tên đăng nhập:</label>
+        <input type="text" id="login-username">
+        <label for="login-password">Mật khẩu:</label>
+        <input type="password" id="login-password">
+        <button onclick="handleLogin()">Đăng nhập</button>
+        <p>Chưa có tài khoản? <a href="#" onclick="showRegisterForm()">Đăng ký</a></p>
+    </div>
+
+    <div id="register-container" style="display: none;">
+        <h2>Đăng ký</h2>
+        <label for="register-username">Tên đăng nhập:</label>
+        <input type="text" id="register-username">
+        <label for="register-password">Mật khẩu:</label>
+        <input type="password" id="register-password">
+        <label for="confirm-password">Xác nhận mật khẩu:</label>
+        <input type="password" id="confirm-password">
+        <button onclick="handleRegister()">Đăng ký</button>
+        <p>Đã có tài khoản? <a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
+    </div>
+
+    <div id="admin-container" style="display: none;">
+        <div class="container">
+            <div class="sidebar">
+                <button class="btn" onclick="showInfoDialog()">Thông tin</button>
+                <button class="btn">Kiểm tra</button>
+                <button class="btn">Khóa tài khoản</button>
+                <button class="btn">Cảnh cáo</button>
+                <button class="btn" onclick="showSendWarnDialog()">Thông báo</button>
+                <button class="btn">Gia hạn</button>
+            </div>
+            <div class="main-content">
+                <h1>Trình quản lí tài khoản nội bộ</h1>
+                <table id="main-table">
+                    <thead>
+                        <tr>
+                            <th>Máy đăng kí</th>
+                            <th>Ngày đăng kí</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Thời gian còn lại</th>
+                            <th>Trạng thái hoạt động</th>
+                            <th>Số tab tối đa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+                <h2>Máy chờ xác thực</h2>
+                <table id="sub-table">
+                    <thead>
+                        <tr>
+                            <th>Máy</th>
+                            <th>Thời gian yêu cầu</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+                <div class="button-group">
+                    <button class="btn" onclick="acceptRequest()">Chấp Nhận</button>
+                    <button class="btn" onclick="rejectRequest()">Từ Chối</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Dialog -->
+        <div id="info-dialog" class="dialog">
+            <div class="dialog-content">
+                <span class="close" onclick="closeDialog('info-dialog')">&times;</span>
+                <p>Thông tin</p>
+            </div>
+        </div>
+
+        <!-- Send Warn Dialog -->
+        <div id="send-warn-dialog" class="dialog">
+            <div class="dialog-content">
+                <span class="close" onclick="closeDialog('send-warn-dialog')">&times;</span>
+                <p>Thông báo</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-container" style="display: none;">
+        <h2>Chào mừng bạn!</h2>
+        <button class="btn" onclick="activateSoftware()">Kích hoạt phần mềm</button>
+        <p>Thời gian còn lại: <span id="remaining-time">30 ngày</span></p>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
